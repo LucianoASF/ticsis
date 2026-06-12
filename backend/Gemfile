@@ -50,3 +50,7 @@ group :development, :test do
 end
 
 gem "ruby-lsp", "~> 0.26.9"
+
+gem "rack-cors", "~> 3.0"
+
+gem "dotenv-rails", "~> 3.2"
