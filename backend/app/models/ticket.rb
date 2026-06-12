@@ -5,6 +5,7 @@ class Ticket < ApplicationRecord
   validates :priority, presence: true, inclusion: { in: %w[LOW MEDIUM HIGH CRITICAL] }
 
   after_initialize :set_default_status, if: :new_record?
+  belongs_to :user
 
     private
 

@@ -1,7 +1,7 @@
 <template>
   <div class="card shadow-sm">
     <div class="card-header">
-      Últimos Chamados
+      Últimos Tickets
     </div>
 
     <div class="table-responsive">
@@ -23,7 +23,7 @@
             <td>{{ ticket.title }}</td>
             <td>{{ ticket.priority }}</td>
             <td>{{ ticket.status }}</td>
-            <td>{{ ticket.user }}</td>
+            <td>{{ ticket.user.name }}</td>
           </tr>
         </tbody>
       </table>
@@ -35,7 +35,7 @@
 defineProps({
   tickets: {
     type: Array,
-    required: true
+    required: false
   }
 })
 </script>
