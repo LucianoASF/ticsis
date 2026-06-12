@@ -1,5 +1,5 @@
 <template>
-  <div class="d-flex justify-content-center align-items-center min-vh-100">
+  <div class="d-flex justify-content-center align-items-center flex-grow-1">
     
     <div class="card shadow-sm w-100" style="max-width: 600px;">
       
