@@ -3,9 +3,14 @@ class UsersController < ApplicationController
 
   # GET /users
   def index
-    @users = User.all
+    users = User.order(created_at: :desc).page(params[:page]).per(10)
 
-    render json: @users
+    render json: {
+      users: users,
+    current_page: users.current_page,
+    total_pages: users.total_pages,
+    total_count: users.total_count
+    }
   end
 
   # GET /users/1
