@@ -33,6 +33,11 @@
               Novo Ticket
             </router-link>
           </li>
+          <li class="nav-item">
+            <router-link class="nav-link" to="/users/new">
+              Novo Usuário
+            </router-link>
+          </li>
         </ul>
       </div>
     </div>
