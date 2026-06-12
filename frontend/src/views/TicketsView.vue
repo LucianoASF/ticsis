@@ -70,7 +70,11 @@ const deleteTicket = async (id) => {
   <Loading v-if="isLoading" />
   <div v-else class="m-5 p-2">
     <h1 class="text-center mb-2">Tickets</h1>
-    <TicketTable :all-tickets="true" :data="data" @delete="deleteTicket" />
+    <TicketTable
+      :all-tickets="true"
+      :tickets="data.tickets"
+      @delete="deleteTicket"
+    />
     <Pagination v-model="page" :total-pages="data.total_pages" />
   </div>
 </template>
