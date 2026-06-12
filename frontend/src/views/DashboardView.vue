@@ -3,59 +3,59 @@ import DashboardCards from '../components/DashboardCards.vue'
 import TicketFilters from '../components/TicketsFilter.vue'
 import TicketTable from '../components/TicketTable.vue'
 import TopUsers from '../components/TopUsers.vue'
-import { onMounted, ref } from 'vue';
-import { api } from '../../api.js';
-import { useToast } from 'vue-toast-notification';
-import Loading from '../components/Loading.vue';
+import { onMounted, ref } from 'vue'
+import { api } from '../../api.js'
+import { useToast } from 'vue-toast-notification'
+import Loading from '../components/Loading.vue'
 
 const statusMap = {
-  OPEN: "Aberto",
-  IN_PROGRESS: "Em andamento",
-  RESOLVED: "Resolvido",
-  CLOSED: "Fechado"
-};
+  OPEN: 'Aberto',
+  IN_PROGRESS: 'Em andamento',
+  RESOLVED: 'Resolvido',
+  CLOSED: 'Fechado',
+}
 
 const priorityMap = {
-  LOW: "Baixa",
-  MEDIUM: "Média",
-  HIGH: "Alta",
-  URGENT: "Urgente"
-};
+  LOW: 'Baixa',
+  MEDIUM: 'Média',
+  HIGH: 'Alta',
+  CRITICAL: 'Crítica',
+}
 
-const data = ref({});
-const $toast = useToast();
+const data = ref({})
+const $toast = useToast()
 const isLoading = ref(false)
 
 onMounted(async () => {
   isLoading.value = true
   try {
-    const res = await api.get("/dashboard")
+    const res = await api.get('/dashboard')
 
-  data.value = {
+    data.value = {
       ...res.data,
-      latest_tickets: res.data.latest_tickets.map(t => ({
+      latest_tickets: res.data.latest_tickets.map((t) => ({
         ...t,
         status: statusMap[t.status] || t.status,
-        priority: priorityMap[t.priority] || t.priority
-      }))
-    };
+        priority: priorityMap[t.priority] || t.priority,
+      })),
+    }
   } catch (error) {
-     $toast.error(error.response?.data?.errors || error.response?.data?.error || "Erro inesperado")
+    $toast.error(
+      error.response?.data?.errors ||
+        error.response?.data?.error ||
+        'Erro inesperado'
+    )
   } finally {
     isLoading.value = false
   }
 })
-
 </script>
 
 <template>
-      <Loading v-if="isLoading"/>
-  
-  <div class="container-fluid py-4" v-else>
+  <Loading v-if="isLoading" />
 
-    <h1 class="mb-4">
-      Dashboard
-    </h1>
+  <div v-else class="container-fluid py-4">
+    <h1 class="mb-4">Dashboard</h1>
 
     <DashboardCards
       :open="data?.status_count?.OPEN || 0"
@@ -66,14 +66,10 @@ onMounted(async () => {
 
     <div class="row mb-4">
       <div class="col-md-4">
-        <TopUsers
-          :topUsers="data?.top_users"
-        />
+        <TopUsers :top-users="data?.top_users" />
       </div>
       <div class="col-md-8">
-        <TicketTable
-          :tickets="data?.latest_tickets"
-        />
+        <TicketTable :tickets="data?.latest_tickets" />
       </div>
     </div>
   </div>
