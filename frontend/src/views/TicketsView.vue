@@ -2,8 +2,10 @@
 import { onMounted, ref } from 'vue';
 import TicketTable from '../components/TicketTable.vue';
 import { api } from '../../api.js';
+import { useToast } from 'vue-toast-notification';
 
 const data = ref({});
+const $toast = useToast();
 
 const statusMap = {
   OPEN: "Aberto",
@@ -30,10 +32,8 @@ onMounted(async () => {
         priority: priorityMap[t.priority] || t.priority
       }))
     
-    
-  console.log(data.value)
   } catch (error) {
-    console.log(error.response)
+     $toast.error(error.response?.data?.errors || error.response?.data?.error || "Erro inesperado")
   }
 })
 

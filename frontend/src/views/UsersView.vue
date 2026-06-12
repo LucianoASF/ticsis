@@ -47,10 +47,12 @@ import { onMounted, ref, watch } from 'vue';
 import { api } from '../../api';
 import Pagination from '../components/Pagination.vue';
 import { Edit, Trash2 } from '@lucide/vue';
+import { useToast } from 'vue-toast-notification';
 
 
 const data = ref({});
 const page = ref(1)
+const $toast = useToast();
 
 
    const fetchUsers = async () => {
@@ -58,7 +60,7 @@ const page = ref(1)
     const res = await api.get(`/users?page=${page.value}`)
     data.value = res.data
   } catch (error) {
-    alert("ocorreu um erro")
+   $toast.error(error.response?.data?.errors || error.response?.data?.error || "Erro inesperado")
   }
 }
 
@@ -69,9 +71,9 @@ const deleteUser = async (id) => {
   try {
     await api.delete(`/users/${id}`)
     fetchUsers()
-    alert("Deletado com sucesso")
+    $toast.success("Deletado com sucesso")
   } catch (error) {
-    alert("erro ao deletar")
+    $toast.error(error.response?.data?.errors || error.response?.data?.error || "Erro inesperado")
   }
 }
 

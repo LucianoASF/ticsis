@@ -2,7 +2,9 @@
 import { reactive } from 'vue'
 import UserForm from '../components/UserForm.vue'
 import { api } from '../../api.js'
+import { useToast } from 'vue-toast-notification';
 
+const $toast = useToast();
 
 
 const user = reactive({
@@ -13,10 +15,9 @@ const user = reactive({
 const save = async () => {
  try {
   const res = await api.post("/users", user)
-  alert("Usuário cadastrado com sucesso")
- } catch (error) {
-   alert("Ocorreu um erro")
-
+  $toast.success("Usuário cadastrado com sucesso.")
+} catch (error) {
+   $toast.error(error.response?.data?.errors || error.response?.data?.error || "Erro inesperado")
  }
 }
 </script>
