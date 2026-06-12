@@ -25,6 +25,7 @@ const save = async () => {
 <template>
   <UserForm
     :user="user"
+    title="Criar Usuário"
     @submit="save"
   />
 </template>

@@ -46,6 +46,7 @@ const save = async () => {
   </div>
   <UserForm v-else
     :user="user"
+    title="Editar Usuário"
     @submit="save"
   />
 </template>

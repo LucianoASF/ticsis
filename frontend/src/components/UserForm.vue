@@ -1,5 +1,7 @@
 <template>
-  <div class="d-flex justify-content-center align-items-center flex-grow-1">
+  <div class="d-flex flex-column justify-content-center align-items-center flex-grow-1 gap-2">
+
+    <h1>{{ title }}</h1>
     
     <div class="card shadow-sm w-100" style="max-width: 600px;">
       
@@ -50,7 +52,11 @@ defineProps({
   user: {
     type: Object,
     required: true
-  }
+  },
+  title: {
+    type: String,
+  required: true
+}
 })
 
 defineEmits(['submit'])
