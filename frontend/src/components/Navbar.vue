@@ -24,13 +24,13 @@
 
           <li class="nav-item">
             <router-link class="nav-link" to="/tickets">
-              Chamados
+              Tickets
             </router-link>
           </li>
 
           <li class="nav-item">
             <router-link class="nav-link" to="/tickets/new">
-              Novo Chamado
+              Novo Ticket
             </router-link>
           </li>
         </ul>

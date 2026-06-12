@@ -3,9 +3,12 @@ class TicketsController < ApplicationController
 
   # GET /tickets
   def index
-    @tickets = Ticket.all
+     @tickets = Ticket.includes(:user)
 
-    render json: @tickets
+     render json: @tickets.as_json(
+    include: {
+      user: { only: [ :name ] }
+    })
   end
 
   # GET /tickets/1
