@@ -56,3 +56,5 @@ gem "rack-cors", "~> 3.0"
 gem "dotenv-rails", "~> 3.2"
 
 gem "kaminari", "~> 1.2"
+
+gem "faker", "~> 3.8"
