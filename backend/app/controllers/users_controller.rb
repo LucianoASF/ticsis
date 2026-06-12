@@ -3,6 +3,11 @@ class UsersController < ApplicationController
 
   # GET /users
   def index
+    users = User.all
+    render json: users
+  end
+
+  def paginedUsers
     users = User.order(updated_at: :desc).page(params[:page]).per(10)
 
     render json: {

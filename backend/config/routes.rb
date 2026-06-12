@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get "/users/pagined", to: "users#paginedUsers"
   resources :dashboard
   resources :tickets
   resources :users
