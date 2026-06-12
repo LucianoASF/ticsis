@@ -5,11 +5,13 @@ import CreateUserView from './views/CreateUserView.vue'
 import UsersView from './views/UsersView.vue'
 import EditUserView from './views/EditUserView.vue'
 import CreateTicketView from './views/CreateTicketView.vue'
+import EditTicketView from './views/EditTicketView.vue'
 
 const routes = [
   { path: '/', component: DashboardView },
   { path: '/tickets', component: TicketsView },
   { path: '/tickets/new', component: CreateTicketView },
+  { path: '/tickets/:id', component: EditTicketView },
   { path: '/users', component: UsersView },
   { path: '/users/new', component: CreateUserView },
   { path: '/users/:id', component: EditUserView },

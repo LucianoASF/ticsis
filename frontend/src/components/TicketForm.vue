@@ -98,6 +98,10 @@ const props = defineProps({
     type: Array,
     default: () => [],
   },
+  isEditting: {
+    type: Boolean,
+    default: false,
+  },
   isSubmitting: {
     type: Boolean,
     required: true,
@@ -111,18 +115,6 @@ const form = reactive({
   status: props.ticket?.status,
   user_id: props.ticket?.user_id || '',
 })
-
-const resetForm = () => {
-  if (props.ticket?.id) return
-
-  Object.assign(form, {
-    title: '',
-    description: '',
-    priority: '',
-    status: '',
-    user_id: '',
-  })
-}
 
 defineEmits(['submit'])
 </script>
