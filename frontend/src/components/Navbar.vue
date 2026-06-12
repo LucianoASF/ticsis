@@ -27,6 +27,11 @@
               Tickets
             </router-link>
           </li>
+          <li class="nav-item">
+            <router-link class="nav-link" to="/users">
+              Usuários
+            </router-link>
+          </li>
 
           <li class="nav-item">
             <router-link class="nav-link" to="/tickets/new">
