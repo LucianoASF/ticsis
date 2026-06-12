@@ -1,5 +1,5 @@
 <template>
-  <div class="d-flex justify-content-center align-items-center min-vh-100">
+  <div class="d-flex justify-content-center align-items-center flex-grow-1">
     <div class="card shadow-sm w-100" style="max-width: 600px">
       <div class="card-header">Formulário de Ticket</div>
 
@@ -32,7 +32,9 @@
           <div class="mb-3">
             <label class="form-label">Prioridade</label>
 
-            <select v-model="form.priority" class="form-select">
+            <select v-model="form.priority" class="form-select" required>
+              <option disabled value="">Selecione a prioridade</option>
+
               <option value="LOW">Baixa</option>
               <option value="MEDIUM">Média</option>
               <option value="HIGH">Alta</option>
@@ -41,7 +43,8 @@
           </div>
           <div v-if="isEditting" class="mb-3">
             <label class="form-label">Status</label>
-            <select v-model="form.status" class="form-select">
+            <select v-model="form.status" class="form-select" required>
+              <option disabled value="">Selecione o status</option>
               <option value="OPEN">Aberto</option>
               <option value="IN_PROGRESS">Em Progrsso</option>
               <option value="RESOLVED">Resolvido</option>
@@ -51,7 +54,12 @@
           <div v-else class="mb-3">
             <label for="user" class="form-label">Responsável</label>
 
-            <select id="user" v-model="form.user_id" class="form-select">
+            <select
+              id="user"
+              v-model="form.user_id"
+              class="form-select"
+              required
+            >
               <option disabled value="">Selecione um responsável</option>
 
               <option v-for="user in users" :key="user.id" :value="user.id">
@@ -101,8 +109,20 @@ const form = reactive({
   description: props.ticket?.description || '',
   priority: props.ticket?.priority || '',
   status: props.ticket?.status,
-  user_id: props.ticket?.user_id,
+  user_id: props.ticket?.user_id || '',
 })
+
+const resetForm = () => {
+  if (props.ticket?.id) return
+
+  Object.assign(form, {
+    title: '',
+    description: '',
+    priority: '',
+    status: '',
+    user_id: '',
+  })
+}
 
 defineEmits(['submit'])
 </script>
