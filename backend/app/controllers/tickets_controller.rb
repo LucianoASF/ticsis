@@ -3,12 +3,15 @@ class TicketsController < ApplicationController
 
   # GET /tickets
   def index
-     @tickets = Ticket.includes(:user)
+     tickets = Ticket.order(updated_at: :desc).page(params[:page]).per(10).includes(:user)
 
-     render json: @tickets.as_json(
+     render json: { tickets: tickets.as_json(
     include: {
       user: { only: [ :name ] }
-    })
+    }), current_page: tickets.current_page,
+    total_pages: tickets.total_pages,
+    total_count: tickets.total_count
+    }
   end
 
   # GET /tickets/1
