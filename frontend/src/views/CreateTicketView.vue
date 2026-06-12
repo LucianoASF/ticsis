@@ -34,9 +34,8 @@ const save = async (form) => {
       user_id: '',
     })
   } catch (error) {
-    console.log(error)
     $toast.error(
-      error.response?.data?.errors ||
+      error.response?.data?.errors.join(', ') ||
         error.response?.data?.error ||
         'Erro inesperado'
     )

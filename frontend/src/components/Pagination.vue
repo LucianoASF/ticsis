@@ -1,22 +1,23 @@
 <script setup>
+import { ChevronLeft, ChevronRight } from '@lucide/vue'
 import { computed } from 'vue'
 
 const props = defineProps({
   modelValue: {
     type: Number,
-    default: 1
+    default: 1,
   },
   totalPages: {
     type: Number,
-    required: true
-  }
+    default: 1,
+  },
 })
 
 const emit = defineEmits(['update:modelValue'])
 
 const currentPage = computed({
   get: () => props.modelValue,
-  set: (val) => emit('update:modelValue', val)
+  set: (val) => emit('update:modelValue', val),
 })
 
 const pages = computed(() => {
@@ -65,11 +66,10 @@ function goTo(page) {
 <template>
   <nav>
     <ul class="pagination justify-content-center">
-
       <!-- Previous -->
       <li class="page-item" :class="{ disabled: currentPage === 1 }">
         <button class="page-link" @click="goTo(currentPage - 1)">
-          <
+          <ChevronLeft size="16" />
         </button>
       </li>
 
@@ -82,8 +82,8 @@ function goTo(page) {
       >
         <button
           class="page-link"
-          @click="goTo(page)"
           :disabled="page === '...'"
+          @click="goTo(page)"
         >
           {{ page }}
         </button>
@@ -92,10 +92,9 @@ function goTo(page) {
       <!-- Next -->
       <li class="page-item" :class="{ disabled: currentPage === totalPages }">
         <button class="page-link" @click="goTo(currentPage + 1)">
-          >
+          <ChevronRight size="16" />
         </button>
       </li>
-
     </ul>
   </nav>
 </template>

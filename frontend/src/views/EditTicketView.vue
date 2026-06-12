@@ -22,7 +22,7 @@ onMounted(async () => {
     ticket.value = res.data
   } catch (error) {
     $toast.error(
-      error.response?.data?.errors ||
+      error.response?.data?.errors.join(', ') ||
         error.response?.data?.error ||
         'Erro inesperado'
     )

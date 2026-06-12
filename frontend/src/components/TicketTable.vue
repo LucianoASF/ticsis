@@ -47,7 +47,7 @@ import { Edit, Trash2 } from '@lucide/vue'
 defineProps({
   tickets: {
     type: Object,
-    required: true,
+    default: () => ({}),
   },
   allTickets: Boolean,
 })

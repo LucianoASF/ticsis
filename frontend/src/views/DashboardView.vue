@@ -1,6 +1,5 @@
 <script setup>
 import DashboardCards from '../components/DashboardCards.vue'
-import TicketFilters from '../components/TicketsFilter.vue'
 import TicketTable from '../components/TicketTable.vue'
 import TopUsers from '../components/TopUsers.vue'
 import { onMounted, ref } from 'vue'
@@ -41,7 +40,7 @@ onMounted(async () => {
     }
   } catch (error) {
     $toast.error(
-      error.response?.data?.errors ||
+      error.response?.data?.errors.join(', ') ||
         error.response?.data?.error ||
         'Erro inesperado'
     )

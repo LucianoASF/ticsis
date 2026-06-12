@@ -2,27 +2,34 @@
 import { reactive, ref } from 'vue'
 import UserForm from '../components/UserForm.vue'
 import { api } from '../../api.js'
-import { useToast } from 'vue-toast-notification';
+import { useToast } from 'vue-toast-notification'
 
-const $toast = useToast();
+const $toast = useToast()
 const isLoading = ref(false)
-
 
 const user = reactive({
   name: '',
   email: '',
 })
 
-const save = async () => {
+const save = async (form) => {
   isLoading.value = true
- try {
-  const res = await api.post("/users", user)
-  $toast.success("Usuário cadastrado com sucesso.")
-} catch (error) {
-   $toast.error(error.response?.data?.errors || error.response?.data?.error || "Erro inesperado")
- } finally {
-  isLoading.value = false
- }
+  try {
+    await api.post('/users', form)
+    $toast.success('Usuário cadastrado com sucesso.')
+    Object.assign(form, {
+      name: '',
+      email: '',
+    })
+  } catch (error) {
+    $toast.error(
+      error.response?.data?.errors.join(', ') ||
+        error.response?.data?.error ||
+        'Erro inesperado'
+    )
+  } finally {
+    isLoading.value = false
+  }
 }
 </script>
 
