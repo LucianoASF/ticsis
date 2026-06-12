@@ -6,6 +6,7 @@ import TopUsers from '../components/TopUsers.vue'
 import { onMounted, ref } from 'vue';
 import { api } from '../../api.js';
 import { useToast } from 'vue-toast-notification';
+import Loading from '../components/Loading.vue';
 
 const statusMap = {
   OPEN: "Aberto",
@@ -23,9 +24,10 @@ const priorityMap = {
 
 const data = ref({});
 const $toast = useToast();
-
+const isLoading = ref(false)
 
 onMounted(async () => {
+  isLoading.value = true
   try {
     const res = await api.get("/dashboard")
 
@@ -37,16 +39,19 @@ onMounted(async () => {
         priority: priorityMap[t.priority] || t.priority
       }))
     };
-  console.log(data.value)
   } catch (error) {
      $toast.error(error.response?.data?.errors || error.response?.data?.error || "Erro inesperado")
+  } finally {
+    isLoading.value = false
   }
 })
 
 </script>
 
 <template>
-  <div class="container-fluid py-4">
+      <Loading v-if="isLoading"/>
+  
+  <div class="container-fluid py-4" v-else>
 
     <h1 class="mb-4">
       Dashboard

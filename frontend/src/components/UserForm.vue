@@ -35,8 +35,11 @@
           <button
             type="submit"
             class="btn btn-primary w-100"
+            :disabled="loading"
           >
-            Salvar
+          <span v-if="loading" class="spinner-border spinner-border-sm me-2"></span>
+            <span v-if="loading">Salvando...</span>
+            <span v-else>Salvar</span>
           </button>
 
         </form>
@@ -56,7 +59,11 @@ defineProps({
   title: {
     type: String,
   required: true
-}
+  },
+  loading: {
+    type: Boolean,
+    default: false
+  }
 })
 
 defineEmits(['submit'])

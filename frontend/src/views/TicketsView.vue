@@ -3,8 +3,10 @@ import { onMounted, ref } from 'vue';
 import TicketTable from '../components/TicketTable.vue';
 import { api } from '../../api.js';
 import { useToast } from 'vue-toast-notification';
+import Loading from '../components/Loading.vue';
 
 const data = ref({});
+const isLoading = ref(false)
 const $toast = useToast();
 
 const statusMap = {
@@ -23,6 +25,7 @@ const priorityMap = {
 
 
 onMounted(async () => {
+  isLoading.value = true
   try {
     const res = await api.get("/tickets")
 
@@ -34,13 +37,16 @@ onMounted(async () => {
     
   } catch (error) {
      $toast.error(error.response?.data?.errors || error.response?.data?.error || "Erro inesperado")
+  } finally {
+  isLoading.value = false
   }
 })
 
 </script>
 
 <template>
-    <div class=" m-5 p-2">
+  <Loading v-if="isLoading"/>
+    <div class=" m-5 p-2" v-else>
         <h1 class="text-center mb-2">Tickets</h1>
         <TicketTable :all-tickets="true" :tickets="data"/>
     </div>

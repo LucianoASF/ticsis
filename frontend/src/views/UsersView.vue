@@ -1,5 +1,6 @@
 <template>
-        <div class=" m-5 p-2 flex-grow-1">
+      <Loading v-if="isLoading"/>
+        <div class=" m-5 p-2 flex-grow-1" v-else>
         <h1 class="text-center mb-2">Usuários</h1>
   <div class="card shadow-sm">
    
@@ -48,19 +49,23 @@ import { api } from '../../api';
 import Pagination from '../components/Pagination.vue';
 import { Edit, Trash2 } from '@lucide/vue';
 import { useToast } from 'vue-toast-notification';
+import Loading from '../components/Loading.vue';
 
-
+const isLoading = ref(false)
 const data = ref({});
 const page = ref(1)
 const $toast = useToast();
 
 
    const fetchUsers = async () => {
+    isLoading.value = true
   try {
     const res = await api.get(`/users?page=${page.value}`)
     data.value = res.data
   } catch (error) {
    $toast.error(error.response?.data?.errors || error.response?.data?.error || "Erro inesperado")
+  } finally {
+    isLoading.value = false
   }
 }
 
