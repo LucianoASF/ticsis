@@ -45,16 +45,29 @@
 </template>
 
 <script setup>
-import { onMounted, ref, watch } from 'vue'
+import { computed, onMounted, ref, watch } from 'vue'
 import { api } from '../../api'
 import Pagination from '../components/Pagination.vue'
 import { Edit, Trash2 } from '@lucide/vue'
 import { useToast } from 'vue-toast-notification'
 import Loading from '../components/Loading.vue'
+import { useRoute, useRouter } from 'vue-router'
 
 const isLoading = ref(false)
 const data = ref({})
-const page = ref(1)
+const router = useRouter()
+const route = useRoute()
+const page = computed({
+  get: () => Number(route.query.page) || 1,
+  set: (value) => {
+    router.replace({
+      query: {
+        ...route.query,
+        page: value,
+      },
+    })
+  },
+})
 const $toast = useToast()
 
 const fetchUsers = async () => {

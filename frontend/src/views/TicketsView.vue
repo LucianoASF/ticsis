@@ -1,15 +1,28 @@
 <script setup>
-import { onMounted, ref, watch } from 'vue'
+import { computed, onMounted, ref, watch } from 'vue'
 import TicketTable from '../components/TicketTable.vue'
 import { api } from '../../api.js'
 import { useToast } from 'vue-toast-notification'
 import Loading from '../components/Loading.vue'
 import Pagination from '../components/Pagination.vue'
+import { useRoute, useRouter } from 'vue-router'
 
 const data = ref({})
 const isLoading = ref(false)
 const $toast = useToast()
-const page = ref(1)
+const router = useRouter()
+const route = useRoute()
+const page = computed({
+  get: () => Number(route.query.page) || 1,
+  set: (value) => {
+    router.replace({
+      query: {
+        ...route.query,
+        page: value,
+      },
+    })
+  },
+})
 
 const statusMap = {
   OPEN: 'Aberto',
