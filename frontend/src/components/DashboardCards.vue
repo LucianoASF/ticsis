@@ -30,8 +30,8 @@
     <div class="col-md-3">
       <div class="card shadow-sm h-100">
         <div class="card-body">
-          <h6 class="text-muted mb-2">Críticos</h6>
-          <h2 class="fw-bold">{{ critical }}</h2>
+          <h6 class="text-muted mb-2">Fechados</h6>
+          <h2 class="fw-bold">{{ closed }}</h2>
         </div>
       </div>
     </div>
@@ -52,9 +52,9 @@ defineProps({
     type: Number,
     required: true,
   },
-  critical: {
+  closed: {
     type: Number,
     required: true,
   },
-});
+})
 </script>

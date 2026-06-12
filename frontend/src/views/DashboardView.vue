@@ -61,7 +61,7 @@ onMounted(async () => {
       :open="data?.status_count?.OPEN || 0"
       :in-progress="data?.status_count?.IN_PROGRESS || 0"
       :resolved="data?.status_count?.RESOLVED || 0"
-      :critical="data?.status_count?.CLOSED || 0"
+      :closed="data?.status_count?.CLOSED || 0"
     />
 
     <div class="row mb-4">
