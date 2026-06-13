@@ -2,7 +2,10 @@
   <div class="card shadow-sm h-100">
     <div class="card-header">Usuários com mais Tickets</div>
 
-    <div class="table-responsive">
+    <h5 v-if="topUsers.length === 0" class="w-100 text-center">
+      Nenhum usuário encontrado!
+    </h5>
+    <div v-else class="table-responsive">
       <table class="table table-hover mb-0">
         <thead>
           <tr>

@@ -3,7 +3,7 @@
     <div v-if="!allTickets" class="card-header">Últimos Tickets</div>
 
     <div class="table-responsive">
-      <h5 v-if="!tickets" class="w-100 text-center">
+      <h5 v-if="tickets.length === 0" class="w-100 text-center">
         Nenhum ticket encontrado!
       </h5>
       <table v-else class="table table-hover mb-0">
@@ -46,8 +46,8 @@ import { Edit, Trash2 } from '@lucide/vue'
 
 defineProps({
   tickets: {
-    type: Object,
-    default: () => ({}),
+    type: Array,
+    default: () => [],
   },
   allTickets: Boolean,
 })
